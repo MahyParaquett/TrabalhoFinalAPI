@@ -40,6 +40,10 @@ public class ItemPedido {
 	@JoinColumn(name = "idproduto", referencedColumnName = "idproduto")
 	private Produto produto;
 	
+	@ManyToOne
+	@JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+	private Pedido pedido;
+	
 	public Integer getIdItemPedido() {
 		return idItemPedido;
 	}

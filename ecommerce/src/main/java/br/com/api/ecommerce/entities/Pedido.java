@@ -13,9 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPedido", scope = Pedido.class)
@@ -47,9 +46,8 @@ public class Pedido {
 	@JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
 	private Cliente cliente;
 
-	@ManyToMany
-	@JoinTable(name = "itempedido", joinColumns = @JoinColumn(name = "idproduto"), inverseJoinColumns = @JoinColumn(name = "idpedido"))  
-	private List<Produto> produtos = new ArrayList<>();
+	@OneToMany(mappedBy= "pedido")
+	private List<ItemPedido> itensPedidos = new ArrayList<>();
 	
 	public Integer getIdPedido() {
 		return idPedido;
