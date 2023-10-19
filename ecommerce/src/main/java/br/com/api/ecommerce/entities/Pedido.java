@@ -1,6 +1,8 @@
 package br.com.api.ecommerce.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -10,9 +12,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPedido",scope = Pedido.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPedido", scope = Pedido.class)
 @Entity
 @Table(name = "pedido")
 public class Pedido {
@@ -21,22 +27,30 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idpedido")
 	private Integer idPedido;
-	
+
 	@Column(name = "datapedido")
 	private Date dataPedido;
-	
+
 	@Column(name = "dataentrega")
 	private Date dataEntrega;
-	
+
 	@Column(name = "dataenvio")
 	private Date dataEnvio;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "valortotal")
 	private Double valorTotal;
 
+	@ManyToOne
+	@JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
+	private Cliente cliente;
+
+	@ManyToMany
+	@JoinTable(name = "itempedido", joinColumns = @JoinColumn(name = "idproduto"), inverseJoinColumns = @JoinColumn(name = "idpedido"))  
+	private List<Produto> produtos = new ArrayList<>();
+	
 	public Integer getIdPedido() {
 		return idPedido;
 	}
@@ -84,6 +98,5 @@ public class Pedido {
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-
 
 }

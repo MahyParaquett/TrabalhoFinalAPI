@@ -1,13 +1,14 @@
 package br.com.api.ecommerce.entities;
 
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCategoria",scope = Categoria.class)
@@ -26,6 +27,9 @@ public class Categoria {
 	@Column(name = "descricao")
 	private String descricao;
 
+	@OneToMany(mappedBy = "categoria")
+	private List<Produto> produtos;
+	
 	public Integer getIdCategoria() {
 		return idCategoria;
 	}
