@@ -3,10 +3,12 @@ package br.com.api.ecommerce.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.api.ecommerce.entities.Cliente;
 import br.com.api.ecommerce.repositories.ClienteRepository;
 
+@Service
 public class ClienteService {
 
 	
