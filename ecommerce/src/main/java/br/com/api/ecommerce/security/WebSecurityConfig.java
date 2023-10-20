@@ -29,8 +29,6 @@ import br.com.api.ecommerce.security.service.UserDetailsServiceImpl;
 @EnableWebSecurity
 public class WebSecurityConfig {
 	
-	@Autowired
-	UserRepository userRepo;
 	
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
