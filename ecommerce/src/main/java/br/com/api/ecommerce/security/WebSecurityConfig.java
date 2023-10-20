@@ -21,12 +21,17 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import br.com.api.ecommerce.repositories.UserRepository;
 import br.com.api.ecommerce.security.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class WebSecurityConfig {
+	
+	@Autowired
+	UserRepository userRepo;
+	
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
