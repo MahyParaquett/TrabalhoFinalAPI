@@ -37,7 +37,7 @@ import jakarta.validation.Valid;
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
-
+	
 	@Autowired
 	UserRepository userRepository;
 
