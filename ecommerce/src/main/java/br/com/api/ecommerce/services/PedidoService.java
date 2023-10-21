@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.api.ecommerce.dto.RelatorioPedidosDto;
+import br.com.api.ecommerce.entities.ItemPedido;
 import br.com.api.ecommerce.entities.Pedido;
 import br.com.api.ecommerce.repositories.PedidoRepository;
 
@@ -60,5 +61,36 @@ public class PedidoService {
 
 		return false;
 	}
+	public void calcularValores(Pedido pedido) {
+	    List<ItemPedido> itens = pedido.getItensPedidos(); 
+
+	    for (ItemPedido item : itens) {
+	        double valorBruto = item.getPrecoVenda() * item.getQuantidade(); 
+	        double valorLiquido = valorBruto - (valorBruto * (item.getPercentualDesconto() / 100)); 
+	        item.setValorBruto(valorBruto); 
+	        item.setValorLiquido(valorLiquido); 
+	    }
+	}
+
+	public void calcularTotal(Pedido pedido) {
+	    List<ItemPedido> itens = pedido.getItensPedidos(); 
+
+	    double total = 0.0; 
+	    for (ItemPedido item : itens) {
+	        total += item.getValorLiquido(); 
+	    }
+
+	    pedido.setValorTotal(total); 
+	}
+
+
+		public PedidoRepository getPedidoRepo() {
+			return pedidoRepo;
+		}
+
+		public void setPedidoRepo(PedidoRepository pedidoRepo) {
+			this.pedidoRepo = pedidoRepo;
+		}
+
 
 }

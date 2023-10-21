@@ -49,6 +49,9 @@ public class Pedido {
 	@OneToMany(mappedBy= "pedido")
 	private List<ItemPedido> itensPedidos = new ArrayList<>();
 	
+	public List<ItemPedido> getItensPedidos() {
+        return this.itensPedidos;}
+	
 	public Integer getIdPedido() {
 		return idPedido;
 	}
@@ -96,5 +99,7 @@ public class Pedido {
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+
+
 
 }
