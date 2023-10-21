@@ -11,9 +11,7 @@ import br.com.api.ecommerce.repositories.ClienteRepository;
 @Service
 public class ClienteService {
 
-	
-
-	@Autowired 
+	@Autowired
 	ClienteRepository clienteRepo;
 
 	public List<Cliente> listarClientes() {
@@ -21,38 +19,47 @@ public class ClienteService {
 	}
 
 	public Cliente buscarClientePorId(Integer id) {
-		return clienteRepo.findById(id).orElse(null); 
+		return clienteRepo.findById(id).orElse(null);
 	}
 
 	public Cliente salvarCliente(Cliente cliente) {
+
+		// Verifica se já tem um cliente com o mesmo CPF
+
+		if (clienteRepo.existsByCpf(cliente.getCpf())) {
+			throw new IllegalArgumentException(" Já existe um cliente com o esse número de CPF!");
+		}
+
+		// Verifica se já tem um cliente com o mesmo Email
+		
+		if (clienteRepo.existsByEmail(cliente.getEmail())) {
+			throw new IllegalArgumentException(" Já existe um cliente com o esse número de CPF!");
+		}
+
 		return clienteRepo.save(cliente);
 	}
 
-	public Cliente atualizarCliente (Cliente cliente) {
+	public Cliente atualizarCliente(Cliente cliente) {
 		return clienteRepo.save(cliente);
 	}
 
 	public Boolean deletarCliente(Cliente cliente) {
-		if(cliente == null)
+		if (cliente == null)
 			return false;
-		
+
 		Cliente clienteExistente = buscarClientePorId(cliente.getIdCliente());
-		
-		if(clienteExistente == null)
+
+		if (clienteExistente == null)
 			return false;
-		
+
 		clienteRepo.delete(cliente);
-		
-		Cliente clienteContinuaExistindo = 
-				buscarClientePorId(cliente.getIdCliente());
-		
-		if(clienteContinuaExistindo == null)
+
+		Cliente clienteContinuaExistindo = buscarClientePorId(cliente.getIdCliente());
+
+		if (clienteContinuaExistindo == null)
 			return true;
 
-		return false;	
+		return false;
 	}
 
 }
-
-
-

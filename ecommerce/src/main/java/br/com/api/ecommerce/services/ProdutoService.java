@@ -11,8 +11,7 @@ import br.com.api.ecommerce.repositories.ProdutoRepository;
 @Service
 public class ProdutoService {
 
-
-	@Autowired 
+	@Autowired
 	ProdutoRepository produtoRepo;
 
 	public List<Produto> listarProdutos() {
@@ -20,39 +19,45 @@ public class ProdutoService {
 	}
 
 	public Produto buscarProdutoPorId(Integer id) {
-		return produtoRepo.findById(id).orElse(null); 
+		return produtoRepo.findById(id).orElse(null);
 	}
 
 	public Produto salvarProduto(Produto produto) {
+		
+		// Verifica se já existe um produto com o mesmo nome
+		if (produtoRepo.existsByNome(produto.getNome())) {
+			throw new IllegalArgumentException("Já existe um produto com esse nome.");
+		}
+
+		// Verifica se já existe um produto com a mesma descrição
+		if (produtoRepo.existsByDescricao(produto.getDescricao())) {
+			throw new IllegalArgumentException("Já existe um produto com essa descrição.");
+		}
+
 		return produtoRepo.save(produto);
 	}
 
-	public Produto atualizarProduto (Produto produto) {
+	public Produto atualizarProduto(Produto produto) {
 		return produtoRepo.save(produto);
 	}
 
 	public Boolean deletarProduto(Produto produto) {
-		if(produto == null)
+		if (produto == null)
 			return false;
-		
+
 		Produto produtoExistente = buscarProdutoPorId(produto.getIdProduto());
-		
-		if(produtoExistente == null)
+
+		if (produtoExistente == null)
 			return false;
-		
+
 		produtoRepo.delete(produto);
-		
-		Produto produtoContinuaExistindo = 
-				buscarProdutoPorId(produto.getIdProduto());
-		
-		if(produtoContinuaExistindo == null)
+
+		Produto produtoContinuaExistindo = buscarProdutoPorId(produto.getIdProduto());
+
+		if (produtoContinuaExistindo == null)
 			return true;
 
-		return false;	
+		return false;
 	}
 
 }
-
-
-	
-

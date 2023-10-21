@@ -1,6 +1,7 @@
 package br.com.api.ecommerce.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,19 @@ import br.com.api.ecommerce.entities.Pedido;
 import br.com.api.ecommerce.entities.Produto;
 import br.com.api.ecommerce.repositories.ItemPedidoRepository;
 import br.com.api.ecommerce.repositories.PedidoRepository;
+import br.com.api.ecommerce.repositories.ProdutoRepository;
 
 @Service
 public class PedidoService {
 
 	@Autowired
 	PedidoRepository pedidoRepo;
-	
+
 	@Autowired
 	ItemPedidoRepository itempedidoRepo;
+
+	@Autowired
+	ProdutoRepository produtoRepo;
 
 	public List<Pedido> listarPedidos() {
 		return pedidoRepo.findAll();
@@ -49,12 +54,12 @@ public class PedidoService {
 		List<ItemPedidoDTO> itensDTO = new ArrayList<>();
 		for (ItemPedido itemPedido : itensPedidos) {
 			ItemPedidoDTO itemDTO = new ItemPedidoDTO();
-			Produto produto = new Produto();
-			
-			
+			// Produto produto = new Produto();
+
+			Produto produto = produtoRepo.findById(itemPedido.getProduto().getIdProduto()).orElse(null);
+
 			// Acesse o produto a partir do ItemPedido
 
-		
 			itemDTO.setCodigoProduto(produto.getIdProduto());
 			itemDTO.setNomeProduto(produto.getNome());
 			itemDTO.setPrecoVenda(produto.getValorUnitario());
@@ -71,10 +76,21 @@ public class PedidoService {
 
 		return relatorioPedidoDTO;
 	}
-	
-	
 
 	public Pedido salvarPedido(Pedido pedido) {
+
+		// Vai obter a data atual
+		Date dataAtual = new Date();
+
+		if (pedido.getDataPedido().before(dataAtual)) {
+			throw new IllegalArgumentException("A data do pedido não pode ser retroativa! ");
+		}
+
+		// Vai calcular o valor total, se tem desconto ou não e deixar essa informação
+		// salva no banco
+		calcularValores(pedido);
+		calcularTotal(pedido);
+
 		return pedidoRepo.save(pedido);
 	}
 
@@ -100,36 +116,35 @@ public class PedidoService {
 
 		return false;
 	}
-	public void calcularValores(Pedido pedido) {
-	    List<ItemPedido> itens = pedido.getItensPedidos(); 
 
-	    for (ItemPedido item : itens) {
-	        double valorBruto = item.getPrecoVenda() * item.getQuantidade(); 
-	        double valorLiquido = valorBruto - (valorBruto * (item.getPercentualDesconto() / 100)); 
-	        item.setValorBruto(valorBruto); 
-	        item.setValorLiquido(valorLiquido); 
-	    }
+	public void calcularValores(Pedido pedido) {
+		List<ItemPedido> itens = pedido.getItensPedidos();
+
+		for (ItemPedido item : itens) {
+			double valorBruto = item.getPrecoVenda() * item.getQuantidade();
+			double valorLiquido = valorBruto - (valorBruto * (item.getPercentualDesconto() / 100));
+			item.setValorBruto(valorBruto);
+			item.setValorLiquido(valorLiquido);
+		}
 	}
 
 	public void calcularTotal(Pedido pedido) {
-	    List<ItemPedido> itens = pedido.getItensPedidos(); 
+		List<ItemPedido> itens = pedido.getItensPedidos();
 
-	    double total = 0.0; 
-	    for (ItemPedido item : itens) {
-	        total += item.getValorLiquido(); 
-	    }
+		double total = 0.0;
+		for (ItemPedido item : itens) {
+			total += item.getValorLiquido();
+		}
 
-	    pedido.setValorTotal(total); 
+		pedido.setValorTotal(total);
 	}
 
+	public PedidoRepository getPedidoRepo() {
+		return pedidoRepo;
+	}
 
-		public PedidoRepository getPedidoRepo() {
-			return pedidoRepo;
-		}
-
-		public void setPedidoRepo(PedidoRepository pedidoRepo) {
-			this.pedidoRepo = pedidoRepo;
-		}
-
+	public void setPedidoRepo(PedidoRepository pedidoRepo) {
+		this.pedidoRepo = pedidoRepo;
+	}
 
 }
