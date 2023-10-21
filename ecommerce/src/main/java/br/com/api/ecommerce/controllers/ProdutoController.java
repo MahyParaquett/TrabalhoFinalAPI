@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.api.ecommerce.entities.Produto;
 import br.com.api.ecommerce.services.ProdutoService;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 
 	@Autowired
@@ -42,11 +41,6 @@ public class ProdutoController {
 	}
 	
 		
-	@GetMapping("/porid")
-	public ResponseEntity<Produto> buscarProdutoPorId(@RequestParam Integer id) {
-		return new  ResponseEntity<>(produtoService.buscarProdutoPorId(id), HttpStatus.OK);
-	}
-
 	@PostMapping
 	public ResponseEntity<Produto> salvarProduto(@RequestBody Produto produto) {
 		return new ResponseEntity<>(produtoService.salvarProduto(produto), HttpStatus.CREATED);

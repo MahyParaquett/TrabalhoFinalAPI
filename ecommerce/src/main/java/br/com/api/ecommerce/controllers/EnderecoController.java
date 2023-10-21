@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.api.ecommerce.entities.Endereco;
 import br.com.api.ecommerce.services.EnderecoService;
 
 @RestController
-@RequestMapping("/endereco")
+@RequestMapping("/enderecos")
 public class EnderecoController {
 
 	@Autowired
@@ -41,11 +40,6 @@ public class EnderecoController {
 	}
 	
 		
-	@GetMapping("/porid")
-	public ResponseEntity<Endereco> buscarEnderecoPorId(@RequestParam Integer id) {
-		return new  ResponseEntity<>(enderecoService.buscarEnderecoPorId(id), HttpStatus.OK);
-	}
-
 	@PostMapping
 	public ResponseEntity<Endereco> salvarEndereco(@RequestBody Endereco endereco) {
 		return new ResponseEntity<>(enderecoService.salvarEndereco(endereco), HttpStatus.CREATED);

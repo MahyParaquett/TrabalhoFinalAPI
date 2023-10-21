@@ -37,11 +37,11 @@ public class ItemPedido {
 	private Double valorLiquido;
 
 	@ManyToOne
-	@JoinColumn(name = "idproduto", referencedColumnName = "idproduto")
+	@JoinColumn(name = "idproduto", referencedColumnName = "idproduto", nullable = false)
 	private Produto produto;
 	
 	@ManyToOne
-	@JoinColumn(name = "idpedido", referencedColumnName = "idpedido")
+	@JoinColumn(name = "idpedido", referencedColumnName = "idpedido", nullable = false)
 	private Pedido pedido;
 	
 	public Integer getIdItemPedido() {

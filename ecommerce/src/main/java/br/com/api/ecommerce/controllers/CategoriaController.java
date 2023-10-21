@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.ecommerce.entities.Categoria;
@@ -43,11 +42,6 @@ public class CategoriaController {
 	}
 	
 		
-	@GetMapping("/porid")
-	public ResponseEntity<Categoria> buscarCategoriaPorId(@RequestParam Integer id) {
-		return new  ResponseEntity<>(categoriaService.buscarCategoriaPorId(id), HttpStatus.OK);
-	}
-
 	@PostMapping
 	public ResponseEntity<Categoria> salvarCategoria(@RequestBody Categoria categoria) {
 		return new ResponseEntity<>(categoriaService.salvarCategoria(categoria), HttpStatus.CREATED);

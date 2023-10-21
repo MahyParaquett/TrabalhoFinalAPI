@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.api.ecommerce.entities.Pedido;
 import br.com.api.ecommerce.services.PedidoService;
 
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController {
 
 	@Autowired
@@ -40,12 +39,6 @@ public class PedidoController {
 			return new ResponseEntity<>(pedido, HttpStatus.OK);
 	}
 	
-		
-	@GetMapping("/porid")
-	public ResponseEntity<Pedido> buscarPedidoPorId(@RequestParam Integer id) {
-		return new  ResponseEntity<>(pedidoService.buscarPedidoPorId(id), HttpStatus.OK);
-	}
-
 	@PostMapping
 	public ResponseEntity<Pedido> salvarPedido(@RequestBody Pedido pedido) {
 		return new ResponseEntity<>(pedidoService.salvarPedido(pedido), HttpStatus.CREATED);
