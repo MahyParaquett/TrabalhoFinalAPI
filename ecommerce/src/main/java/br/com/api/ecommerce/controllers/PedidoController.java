@@ -42,6 +42,28 @@ public class PedidoController {
 			return new ResponseEntity<>(pedido, HttpStatus.OK);
 	}
 
+	@PostMapping("/calcularValores/{id}")
+	public ResponseEntity<String> calcularValores(@PathVariable Integer id) {
+		Pedido pedido = pedidoService.buscarPedidoPorId(id);
+		if (pedido == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido não encontrado");
+		}
+
+		pedidoService.calcularValores(pedido);
+		return ResponseEntity.ok("Valores calculados com sucesso");
+	}
+
+	@PostMapping("/calcularTotal/{id}")
+	public ResponseEntity<String> calcularTotal(@PathVariable Integer id) {
+		Pedido pedido = pedidoService.buscarPedidoPorId(id);
+		if (pedido == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pedido não encontrado");
+		}
+
+		pedidoService.calcularTotal(pedido);
+		return ResponseEntity.ok("Total calculado com sucesso");
+	}
+
 	@GetMapping("/RelatorioPedidos/{id}")
 	public ResponseEntity<RelatorioPedidosDto> getPedidoResumidoPorId(@PathVariable Integer id) {
 		RelatorioPedidosDto relatoriopedidosdto = pedidoService.getPedidoResumidoPorId(id);
