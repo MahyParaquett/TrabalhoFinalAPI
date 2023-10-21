@@ -21,7 +21,7 @@ public class Endereco {
 	private Integer idEndereco;
 	
 	@Column(name = "cep")
-	private Long cep;
+	private String cep;
 	
 	@Column(name = "rua")
 	private String rua;
@@ -53,11 +53,11 @@ public class Endereco {
 		this.idEndereco = idEndereco;
 	}
 
-	public Long getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Long cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 

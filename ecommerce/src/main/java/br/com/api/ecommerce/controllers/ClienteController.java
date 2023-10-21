@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.api.ecommerce.entities.Cliente;
 import br.com.api.ecommerce.services.ClienteService;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 
 	@Autowired
@@ -41,11 +40,6 @@ public class ClienteController {
 	}
 	
 		
-	@GetMapping("/porid")
-	public ResponseEntity<Cliente> buscarClientePorId(@RequestParam Integer id) {
-		return new  ResponseEntity<>(clienteService.buscarClientePorId(id), HttpStatus.OK);
-	}
-
 	@PostMapping
 	public ResponseEntity<Cliente> salvarCliente(@RequestBody Cliente cliente) {
 		return new ResponseEntity<>(clienteService.salvarCliente(cliente), HttpStatus.CREATED);

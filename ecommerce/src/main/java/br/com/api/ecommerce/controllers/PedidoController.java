@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.ecommerce.dto.RelatorioPedidosDto;
@@ -20,14 +19,14 @@ import br.com.api.ecommerce.entities.Pedido;
 import br.com.api.ecommerce.services.PedidoService;
 
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController {
 
 	@Autowired
 	PedidoService pedidoService;
 
 	@GetMapping
-	public ResponseEntity<List<Pedido>> listarPedidos() {
+	public ResponseEntity<List<Pedido>> listaPedidos() {
 		return new ResponseEntity<>(pedidoService.listarPedidos(), HttpStatus.OK);
 	}
 
@@ -72,11 +71,6 @@ public class PedidoController {
 
 		else
 			return new ResponseEntity<>(relatoriopedidosdto, HttpStatus.OK);
-	}
-
-	@GetMapping("/porid")
-	public ResponseEntity<Pedido> buscarPedidoPorId(@RequestParam Integer id) {
-		return new ResponseEntity<>(pedidoService.buscarPedidoPorId(id), HttpStatus.OK);
 	}
 
 	@PostMapping

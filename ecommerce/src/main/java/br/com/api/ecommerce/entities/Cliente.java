@@ -30,10 +30,10 @@ public class Cliente {
 	private String nomeCompleto;
 	
 	@Column(name = "cpf")
-	private Long cpf;
+	private String cpf;
 	
 	@Column(name = "telefone")
-	private Long telefone;
+	private String telefone;
 	
 	@Column(name = "datanascimento")
 	private Date dataNascimento;
@@ -68,19 +68,19 @@ public class Cliente {
 		this.nomeCompleto = nomeCompleto;
 	}
 
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	public Long getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Long telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
