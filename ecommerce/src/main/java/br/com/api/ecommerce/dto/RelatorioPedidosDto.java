@@ -1,33 +1,25 @@
 package br.com.api.ecommerce.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class RelatorioPedidosDto {
 
 	private Integer idPedido;
 	private Date dataPedido;
-	private Double codigoProduto;
-	private Double precoVenda;
-	private Integer quantidade;
-	private Double valorBruto;
-	private Double percentualDesconto;
-	private Double valorLiquido;
-	
+	private Double valorTotal;
+	private List<ItemPedidoDTO> itens;
+
 	public RelatorioPedidosDto() {
-		
+
 	}
 
-	public RelatorioPedidosDto(Integer idPedido, Date dataPedido, Double codigoProduto, Double precoVenda,
-			Integer quantidade, Double valorBruto, Double percentualDesconto, Double valorLiquido) {
+	public RelatorioPedidosDto(Integer idPedido, Date dataPedido, Double valorTotal, List<ItemPedidoDTO> itens) {
 		super();
 		this.idPedido = idPedido;
 		this.dataPedido = dataPedido;
-		this.codigoProduto = codigoProduto;
-		this.precoVenda = precoVenda;
-		this.quantidade = quantidade;
-		this.valorBruto = valorBruto;
-		this.percentualDesconto = percentualDesconto;
-		this.valorLiquido = valorLiquido;
+		this.valorTotal = valorTotal;
+		this.itens = itens;
 	}
 
 	public Integer getIdPedido() {
@@ -46,55 +38,20 @@ public class RelatorioPedidosDto {
 		this.dataPedido = dataPedido;
 	}
 
-	public Double getCodigoProduto() {
-		return codigoProduto;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setCodigoProduto(Double codigoProduto) {
-		this.codigoProduto = codigoProduto;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public Double getPrecoVenda() {
-		return precoVenda;
+	public List<ItemPedidoDTO> getItens() {
+		return itens;
 	}
 
-	public void setPrecoVenda(Double precoVenda) {
-		this.precoVenda = precoVenda;
+	public void setItens(List<ItemPedidoDTO> itens) {
+		this.itens = itens;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public Double getValorBruto() {
-		return valorBruto;
-	}
-
-	public void setValorBruto(Double valorBruto) {
-		this.valorBruto = valorBruto;
-	}
-
-	public Double getPercentualDesconto() {
-		return percentualDesconto;
-	}
-
-	public void setPercentualDesconto(Double percentualDesconto) {
-		this.percentualDesconto = percentualDesconto;
-	}
-
-	public Double getValorLiquido() {
-		return valorLiquido;
-	}
-
-	public void setValorLiquido(Double valorLiquido) {
-		this.valorLiquido = valorLiquido;
-	}
-	
-	
-	
-	
 }
