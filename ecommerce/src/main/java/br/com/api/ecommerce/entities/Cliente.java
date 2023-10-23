@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -41,9 +42,27 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
 	
-	@OneToOne(mappedBy = "cliente")
+	@OneToOne
+	@JoinColumn(name = "idendereco", referencedColumnName = "idendereco", unique = true)
 	private Endereco endereco;
 	
+		
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public Integer getIdCliente() {
 		return idCliente;
 	}

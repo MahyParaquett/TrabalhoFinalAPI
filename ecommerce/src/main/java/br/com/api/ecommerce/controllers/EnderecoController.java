@@ -1,6 +1,7 @@
 package br.com.api.ecommerce.controllers;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.api.ecommerce.entities.Endereco;
 import br.com.api.ecommerce.services.EnderecoService;
 
@@ -44,7 +46,8 @@ public class EnderecoController {
 	public ResponseEntity<Endereco> salvarEndereco(@RequestBody Endereco endereco) {
 		return new ResponseEntity<>(enderecoService.salvarEndereco(endereco), HttpStatus.CREATED);
 	}
-
+	
+	
 	@PutMapping
 	public ResponseEntity <Endereco> atualizar(@RequestBody Endereco endereco) {
 		return new ResponseEntity<>(enderecoService.atualizarEndereco(endereco), HttpStatus.OK);
