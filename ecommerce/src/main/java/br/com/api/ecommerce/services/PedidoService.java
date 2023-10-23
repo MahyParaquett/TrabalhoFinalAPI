@@ -81,9 +81,10 @@ public class PedidoService {
 	public Pedido salvarPedido(Pedido pedido) {
 
 		// Vai obter a data atual
-		LocalDate dataAtual = LocalDate.now();
+		LocalDate dataAtual = LocalDate.now().minusDays(1);
 
-		// Vai converter a data do pedido para LocalDate (supondo que a dataPedido seja do tipo LocalDate)
+		// Vai converter a data do pedido para LocalDate (supondo que a dataPedido seja
+		// do tipo LocalDate)
 		LocalDate dataDoPedido = pedido.getDataPedido().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 		// Compara as datas:

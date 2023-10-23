@@ -33,7 +33,7 @@ public class ClienteService {
 		// Verifica se já tem um cliente com o mesmo Email
 		
 		if (clienteRepo.existsByEmail(cliente.getEmail())) {
-			throw new IllegalArgumentException(" Já existe um cliente com o esse número de CPF!");
+			throw new IllegalArgumentException(" Já existe um cliente com esse email!");
 		}
 
 		return clienteRepo.save(cliente);
