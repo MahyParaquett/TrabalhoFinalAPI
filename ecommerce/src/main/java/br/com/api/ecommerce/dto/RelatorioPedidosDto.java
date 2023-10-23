@@ -54,4 +54,10 @@ public class RelatorioPedidosDto {
 		this.itens = itens;
 	}
 
+	@Override
+	public String toString() {
+		return "RelatorioPedidosDto [idPedido=" + idPedido + ", dataPedido=" + dataPedido + ", valorTotal=" + valorTotal
+				+ ", itens=" + itens + "]";
+	}
+
 }
