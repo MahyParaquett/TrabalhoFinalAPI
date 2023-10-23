@@ -23,12 +23,6 @@ public class ProdutoService {
 	}
 
 	public Produto salvarProduto(Produto produto) {
-		
-		// Verifica se já existe um produto com o mesmo nome
-		if (produtoRepo.existsByNome(produto.getNome())) {
-			throw new IllegalArgumentException("Já existe um produto com esse nome.");
-		}
-
 		// Verifica se já existe um produto com a mesma descrição
 		if (produtoRepo.existsByDescricao(produto.getDescricao())) {
 			throw new IllegalArgumentException("Já existe um produto com essa descrição.");
