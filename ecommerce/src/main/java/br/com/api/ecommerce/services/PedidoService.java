@@ -1,7 +1,8 @@
 package br.com.api.ecommerce.services;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,10 +81,14 @@ public class PedidoService {
 	public Pedido salvarPedido(Pedido pedido) {
 
 		// Vai obter a data atual
-		Date dataAtual = new Date();
+		LocalDate dataAtual = LocalDate.now();
 
-		if (pedido.getDataPedido().before(dataAtual)) {
-			throw new IllegalArgumentException("A data do pedido não pode ser retroativa! ");
+		// Vai converter a data do pedido para LocalDate (supondo que a dataPedido seja do tipo LocalDate)
+		LocalDate dataDoPedido = pedido.getDataPedido().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		// Compara as datas:
+		if (dataDoPedido.isBefore(dataAtual)) {
+			throw new IllegalArgumentException("A data do pedido não pode ser retroativa.");
 		}
 
 		// Vai calcular o valor total, se tem desconto ou não e deixar essa informação
