@@ -1,0 +1,5 @@
+INSERT INTO public.endereco VALUES (1, 'Centro', '25620-160', 'Petrópolis', '', NULL, 'Rua General Osório', 'RJ');
+INSERT INTO public.endereco VALUES (2, 'Glória', '27933-660', 'Macaé', '', NULL, 'Rua Josias Ferreira Lima', 'RJ');
+INSERT INTO public.endereco VALUES (3, 'Copacabana', '22021-001', 'Rio de Janeiro', 'de 1662 a 2172 - lado par', NULL, 'Avenida Atlântica', 'RJ');
+
+

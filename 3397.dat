@@ -1,0 +1,5 @@
+INSERT INTO public.cliente VALUES (1, 1, '1990-08-08 21:00:00', '125.444.777-11', 'angelina@email.com', 'Jolie', '984562358');
+INSERT INTO public.cliente VALUES (2, 2, '1987-10-24 21:00:00', '123.456.789-11', 'lovato@email.com', 'Demi Lovato', '984563145');
+INSERT INTO public.cliente VALUES (3, 3, '1999-10-09 22:00:00', '180.880.789-10', 'paraquett@email.com', 'Mahy Paraquett', '981174884');
+
+
