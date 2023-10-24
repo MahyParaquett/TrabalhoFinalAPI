@@ -1,7 +1,6 @@
 package br.com.api.ecommerce.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.api.ecommerce.entities.Categoria;
 import br.com.api.ecommerce.services.CategoriaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/categorias")
@@ -31,14 +30,10 @@ public class CategoriaController {
 		}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> buscarPorId(@Valid @PathVariable Integer id) {
 		Categoria categoria = categoriaService.buscarCategoriaPorId(id);
+		return new ResponseEntity<>(categoria, HttpStatus.OK);
 		
-		if(categoria == null)
-		return new  ResponseEntity<>(categoria, HttpStatus.NOT_FOUND);
-	
-		else
-			return new ResponseEntity<>(categoria, HttpStatus.OK);
 	}
 	
 		

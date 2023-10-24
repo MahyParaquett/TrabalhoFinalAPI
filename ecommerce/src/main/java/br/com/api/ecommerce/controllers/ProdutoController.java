@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import br.com.api.ecommerce.entities.Produto;
 import br.com.api.ecommerce.services.ProdutoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/produtos")
@@ -34,14 +34,9 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Produto> buscarPorId(@Valid @PathVariable Integer id) {
 		Produto produto = produtoService.buscarProdutoPorId(id);
-		
-		if(produto == null)
-		return new  ResponseEntity<>(produto, HttpStatus.NOT_FOUND);
-	
-		else
-			return new ResponseEntity<>(produto, HttpStatus.OK);
+		return new ResponseEntity<>(produto, HttpStatus.OK);
 	}
 		
 	@PostMapping

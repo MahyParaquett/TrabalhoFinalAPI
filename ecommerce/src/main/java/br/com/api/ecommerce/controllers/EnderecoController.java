@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.ecommerce.entities.Endereco;
 import br.com.api.ecommerce.services.EnderecoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/enderecos")
@@ -31,14 +32,9 @@ public class EnderecoController {
 		}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Endereco> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Endereco> buscarPorId(@Valid @PathVariable Integer id) {
 		Endereco endereco = enderecoService.buscarEnderecoPorId(id);
-		
-		if(endereco == null)
-		return new  ResponseEntity<>(endereco, HttpStatus.NOT_FOUND);
-	
-		else
-			return new ResponseEntity<>(endereco, HttpStatus.OK);
+		return new ResponseEntity<>(endereco, HttpStatus.OK);
 	}
 	
 		

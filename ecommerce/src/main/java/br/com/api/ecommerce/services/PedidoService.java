@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,8 @@ public class PedidoService {
 	}
 
 	public Pedido buscarPedidoPorId(Integer id) {
-		return pedidoRepo.findById(id).orElse(null);
+		return pedidoRepo.findById(id)
+		        .orElseThrow(() -> new NoSuchElementException("Pedido" + id));
 	}
 
 	public RelatorioPedidosDto getPedidoResumidoPorId(Integer id) {
@@ -93,12 +95,7 @@ public class PedidoService {
         if (dataDoPedido.isBefore(dataAtual)) {
             throw new IllegalArgumentException("A data do pedido não pode ser retroativa.");
         }
-
-        // Vai calcular o valor total, se tem desconto ou não e deixar essa informação
-        // salva no banco
-        calcularValores(pedido);
-        calcularTotal(pedido);
-
+        
         Pedido novoPedido = pedidoRepo.save(pedido);
         RelatorioPedidosDto relatorioDto = getPedidoResumidoPorId(pedido.getIdPedido());
         
@@ -107,6 +104,7 @@ public class PedidoService {
         return novoPedido;
       
     }
+
 
 	public Pedido atualizarPedido(Pedido pedido) {
 		return pedidoRepo.save(pedido);
@@ -130,29 +128,7 @@ public class PedidoService {
 
 		return false;
 	}
-
-	public void calcularValores(Pedido pedido) {
-		List<ItemPedido> itens = pedido.getItensPedidos();
-
-		for (ItemPedido item : itens) {
-			double valorBruto = item.getPrecoVenda() * item.getQuantidade();
-			double valorLiquido = valorBruto - (valorBruto * (item.getPercentualDesconto() / 100));
-			item.setValorBruto(valorBruto);
-			item.setValorLiquido(valorLiquido);
-		}
-	}
-
-	public void calcularTotal(Pedido pedido) {
-		List<ItemPedido> itens = pedido.getItensPedidos();
-
-		double total = 0.0;
-		for (ItemPedido item : itens) {
-			total += item.getValorLiquido();
-		}
-
-		pedido.setValorTotal(total);
-	}
-
+	
 	public PedidoRepository getPedidoRepo() {
 		return pedidoRepo;
 	}
