@@ -1,6 +1,7 @@
 package br.com.api.ecommerce.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,9 @@ public class CategoriaService {
 	}
 
 	public Categoria buscarCategoriaPorId(Integer id) {
-		return categoriaRepo.findById(id).orElse(null); 
+		return categoriaRepo.findById(id)
+		        .orElseThrow(() -> new NoSuchElementException("Categoria" + id));
+	 
 	}
 
 	public Categoria salvarCategoria(Categoria categoria) {

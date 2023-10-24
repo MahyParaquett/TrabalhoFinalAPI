@@ -2,6 +2,7 @@ package br.com.api.ecommerce.services;
 
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,8 @@ public class EnderecoService {
 	}
 
 	public Endereco buscarEnderecoPorId(Integer id) {
-		return enderecoRepo.findById(id).orElse(null); 
+		return enderecoRepo.findById(id)
+		        .orElseThrow(() -> new NoSuchElementException("Endereço" + id)); 
 	}
 
 	public Endereco salvarEndereco(Endereco enderecoCep) {

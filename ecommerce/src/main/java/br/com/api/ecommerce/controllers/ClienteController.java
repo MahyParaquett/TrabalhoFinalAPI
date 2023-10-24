@@ -1,6 +1,7 @@
 package br.com.api.ecommerce.controllers;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.api.ecommerce.entities.Cliente;
 import br.com.api.ecommerce.services.ClienteService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/clientes")
@@ -29,14 +32,9 @@ public class ClienteController {
 		}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Cliente> buscarPorId(@Valid @PathVariable Integer id) {
 		Cliente cliente = clienteService.buscarClientePorId(id);
-		
-		if(cliente == null)
-		return new  ResponseEntity<>(cliente, HttpStatus.NOT_FOUND);
-	
-		else
-			return new ResponseEntity<>(cliente, HttpStatus.OK);
+		return new ResponseEntity<>(cliente, HttpStatus.OK);
 	}
 	
 		

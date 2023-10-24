@@ -1,7 +1,6 @@
 package br.com.api.ecommerce.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.api.ecommerce.dto.RelatorioPedidosDto;
 import br.com.api.ecommerce.entities.Pedido;
 import br.com.api.ecommerce.services.PedidoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -31,14 +30,9 @@ public class PedidoController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Pedido> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Pedido> buscarPorId(@Valid @PathVariable Integer id) {
 		Pedido pedido = pedidoService.buscarPedidoPorId(id);
-
-		if (pedido == null)
-			return new ResponseEntity<>(pedido, HttpStatus.NOT_FOUND);
-
-		else
-			return new ResponseEntity<>(pedido, HttpStatus.OK);
+		return new ResponseEntity<>(pedido, HttpStatus.OK);
 	}
 
 	@GetMapping("/RelatorioPedidos/{id}")
