@@ -40,7 +40,6 @@ public class ItemPedidoController {
 			return new ResponseEntity<>(itempedido, HttpStatus.OK);
 	}
 	
-	
 	@PostMapping
 	public ResponseEntity<ItemPedido> salvarItemPedido(@RequestBody ItemPedido itempedido) {
 		return new ResponseEntity<>(itempedidoService.salvarItemPedido(itempedido), HttpStatus.CREATED);
