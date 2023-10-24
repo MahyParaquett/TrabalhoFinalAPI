@@ -1,4 +1,0 @@
-INSERT INTO public.itempedido VALUES (1, 1, 1, 0.1, 200, 10, NULL, NULL);
-INSERT INTO public.itempedido VALUES (2, 2, 1, 0.3, 300, 10, NULL, NULL);
-
-

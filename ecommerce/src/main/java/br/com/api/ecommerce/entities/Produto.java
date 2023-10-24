@@ -3,10 +3,11 @@ package br.com.api.ecommerce.entities;
 
 import java.util.Date;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Column;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -41,10 +42,8 @@ public class Produto {
 	@Column(name = "valorunitario")
 	private Double valorUnitario;
 	
-	//@Column(name = "imagem", length = 999999)
-	@Lob
-	@Column(name = "imagem")
-    private byte[] imagem; //private String imagem;
+	@Column(name = "imagem", length = 999999)
+	private String imagem;
 
 	public Integer getIdProduto() {
 		return idProduto;
@@ -118,11 +117,11 @@ public class Produto {
 		this.itensPedidos = itensPedidos;
 	}
 	
-	public byte[] getImagem() {
+	public String getImagem() {
         return imagem;
     }
 
-    public void setImagem(byte[] imagem) {
+    public void setImagem(String imagem) {
         this.imagem = imagem;
     }
     

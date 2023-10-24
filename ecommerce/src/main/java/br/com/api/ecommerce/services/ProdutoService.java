@@ -1,16 +1,12 @@
 package br.com.api.ecommerce.services;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.api.ecommerce.entities.Produto;
 import br.com.api.ecommerce.repositories.ProdutoRepository;
@@ -81,8 +77,8 @@ public class ProdutoService {
 	public Produto addImagem(Integer id, MultipartFile arqImg) throws IOException {
 		Produto produto = produtoRepo.findById(id).orElse(null);
 	    if (produto != null) {
-	        //String emBase64 = Base64.getEncoder().encodeToString(arqImg.getBytes());
-	    	produto.setImagem(arqImg.getBytes());
+	        String emBase64 = Base64.getEncoder().encodeToString(arqImg.getBytes());
+	    	produto.setImagem(emBase64);
 	        return produtoRepo.save(produto);
 	    }
 	    return null;
