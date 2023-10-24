@@ -1,12 +1,12 @@
 package br.com.api.ecommerce.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -33,7 +33,7 @@ public class Endereco {
 	private String cidade;
 	
 	@Column(name = "numero")
-	private Integer numero;
+	private String numero;
 	
 	@Column(name = "complemento")
 	private String complemento;
@@ -41,9 +41,8 @@ public class Endereco {
 	@Column(name = "uf")
 	private String uf;
 
-	@OneToOne(optional = false)
-    @JoinColumn(name = "idcliente", referencedColumnName = "idcliente", unique = true)
-    private Cliente cliente;
+	@OneToOne(mappedBy = "endereco")
+     private Cliente cliente;
 	
 	public Integer getIdEndereco() {
 		return idEndereco;
@@ -85,12 +84,12 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
-		this.numero = numero;
+	public void setNumero(String string) {
+		this.numero = string;
 	}
 
 	public String getComplemento() {

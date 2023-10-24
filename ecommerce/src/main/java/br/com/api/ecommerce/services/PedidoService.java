@@ -1,12 +1,12 @@
 package br.com.api.ecommerce.services;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.api.ecommerce.dto.ItemPedidoDTO;
 import br.com.api.ecommerce.dto.RelatorioPedidosDto;
 import br.com.api.ecommerce.entities.ItemPedido;
@@ -28,6 +28,9 @@ public class PedidoService {
 	@Autowired
 	ProdutoRepository produtoRepo;
 
+	@Autowired
+	EmailService emailService;
+	
 	public List<Pedido> listarPedidos() {
 		return pedidoRepo.findAll();
 	}
@@ -78,21 +81,32 @@ public class PedidoService {
 	}
 
 	public Pedido salvarPedido(Pedido pedido) {
+		
+        // Vai obter a data atual
+        LocalDate dataAtual = LocalDate.now().minusDays(1);
 
-		// Vai obter a data atual
-		Date dataAtual = new Date();
+        // Vai converter a data do pedido para LocalDate (supondo que a dataPedido seja
+        // do tipo LocalDate)
+        LocalDate dataDoPedido = pedido.getDataPedido().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-		if (pedido.getDataPedido().before(dataAtual)) {
-			throw new IllegalArgumentException("A data do pedido não pode ser retroativa! ");
-		}
+        // Compara as datas:
+        if (dataDoPedido.isBefore(dataAtual)) {
+            throw new IllegalArgumentException("A data do pedido não pode ser retroativa.");
+        }
 
-		// Vai calcular o valor total, se tem desconto ou não e deixar essa informação
-		// salva no banco
-		calcularValores(pedido);
-		calcularTotal(pedido);
+        // Vai calcular o valor total, se tem desconto ou não e deixar essa informação
+        // salva no banco
+        calcularValores(pedido);
+        calcularTotal(pedido);
 
-		return pedidoRepo.save(pedido);
-	}
+        Pedido novoPedido = pedidoRepo.save(pedido);
+        RelatorioPedidosDto relatorioDto = getPedidoResumidoPorId(pedido.getIdPedido());
+        
+        
+        emailService.enviarEmail("cintiaazevedocastrogall@gmail.com", "Novo pedido efetuado!", relatorioDto.toString());	
+        return novoPedido;
+      
+    }
 
 	public Pedido atualizarPedido(Pedido pedido) {
 		return pedidoRepo.save(pedido);

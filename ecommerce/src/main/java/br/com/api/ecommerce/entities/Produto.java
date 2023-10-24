@@ -3,8 +3,10 @@ package br.com.api.ecommerce.entities;
 
 import java.util.Date;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduto",scope = Produto.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduto", scope = Produto.class)
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -39,6 +41,9 @@ public class Produto {
 	
 	@Column(name = "valorunitario")
 	private Double valorUnitario;
+	
+	@Column(name = "imagem", length = 999999)
+	private String imagem;
 
 	public Integer getIdProduto() {
 		return idProduto;
@@ -112,6 +117,12 @@ public class Produto {
 		this.itensPedidos = itensPedidos;
 	}
 	
-	
+	public String getImagem() {
+        return imagem;
+    }
 
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+    
 }
