@@ -1,4 +1,0 @@
-INSERT INTO public.categoria VALUES (1, 'roupas casuais incriveis', 'Casual');
-INSERT INTO public.categoria VALUES (2, 'roupas festivas incriveis', 'Festiva');
-
-

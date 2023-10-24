@@ -1,3 +1,0 @@
-INSERT INTO public.users VALUES (1, 'user', 'user@mail.com', '$2a$10$LRtHng0cneYXmW6pqcgnAOe8FcSR2AjZrXcGeUvhViVUhlvCJVQh.');
-
-
