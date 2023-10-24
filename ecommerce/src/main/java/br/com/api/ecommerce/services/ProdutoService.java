@@ -1,9 +1,16 @@
 package br.com.api.ecommerce.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.api.ecommerce.entities.Produto;
 import br.com.api.ecommerce.repositories.ProdutoRepository;
@@ -52,6 +59,33 @@ public class ProdutoService {
 			return true;
 
 		return false;
+	}
+	
+	// Adicionando imagem:
+	/*
+	public Produto salvarComImagem(String strProduto, MultipartFile arqImg) 
+			throws JsonMappingException, JsonProcessingException {
+		Produto produto = new Produto();
+		
+		try {
+			ObjectMapper objMp = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			produto = objMp.readValue(strProduto, Produto.class);
+			produto.setImagem(arqImg.getBytes());
+		} catch (IOException e) {
+			System.out.println("Erro na conversão da string");
+		}
+		
+		return produtoRepo.save(produto);
+	}*/
+	
+	public Produto addImagem(Integer id, MultipartFile arqImg) throws IOException {
+		Produto produto = produtoRepo.findById(id).orElse(null);
+	    if (produto != null) {
+	        //String emBase64 = Base64.getEncoder().encodeToString(arqImg.getBytes());
+	    	produto.setImagem(arqImg.getBytes());
+	        return produtoRepo.save(produto);
+	    }
+	    return null;
 	}
 
 }
