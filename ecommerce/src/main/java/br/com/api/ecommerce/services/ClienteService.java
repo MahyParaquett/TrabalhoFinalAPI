@@ -1,6 +1,7 @@
 package br.com.api.ecommerce.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class ClienteService {
 	}
 
 	public Cliente buscarClientePorId(Integer id) {
-		return clienteRepo.findById(id).orElse(null);
+		return clienteRepo.findById(id)
+		        .orElseThrow(() -> new NoSuchElementException("Cliente" + id));
 	}
 
 	public Cliente salvarCliente(Cliente cliente) {

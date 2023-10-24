@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,8 @@ public class PedidoService {
 	}
 
 	public Pedido buscarPedidoPorId(Integer id) {
-		return pedidoRepo.findById(id).orElse(null);
+		return pedidoRepo.findById(id)
+		        .orElseThrow(() -> new NoSuchElementException("Pedido" + id));
 	}
 
 	public RelatorioPedidosDto getPedidoResumidoPorId(Integer id) {
