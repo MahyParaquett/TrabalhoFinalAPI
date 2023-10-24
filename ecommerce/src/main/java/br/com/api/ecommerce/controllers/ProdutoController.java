@@ -15,11 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-<<<<<<< HEAD
-=======
 import org.springframework.web.multipart.MultipartFile;
->>>>>>> ed58c8236eb1131af44cd6ec9ce95182828e8ab3
-
 import br.com.api.ecommerce.entities.Produto;
 import br.com.api.ecommerce.services.ProdutoService;
 import jakarta.validation.Valid;
